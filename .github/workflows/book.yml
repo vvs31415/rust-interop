@@ -3,7 +3,7 @@ name: Book
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - book/**
       - .github/workflows/book.yml
