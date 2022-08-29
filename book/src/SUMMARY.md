@@ -1,8 +1,8 @@
 # Summary
 
-- [Introduction](./chapter_00.md)
-- [Interop with C](./chapter_01.md)
-  - [Initial C application](./chapter_01-01.md)
+- [Introduction](index.md)
+- [Interop with C](c-intro.md)
+  - [Initial C application](c/initial.md)
 
 [//]: # (  - [Calling a Rust function from C]&#40;./chapter_01-02.md&#41;)
 [//]: # (  - [Passing data to and from Rust]&#40;./chapter_01-03.md&#41;)
