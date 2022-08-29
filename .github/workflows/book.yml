@@ -30,7 +30,7 @@ jobs:
           ./mdbook build
 
       - name: Push to gh-pages
-        working-directory: book/build
+        working-directory: book/book
         run: |
           REV=$(git rev-parse --short HEAD)
           git init
