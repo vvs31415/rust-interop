@@ -8,8 +8,16 @@ size_t do_calculation(const char* command, const char* data);
 size_t count_bytes(const char* data);
 void print_result(size_t result);
 
+void print_version();
+
 int main(const int argc, const char *argv[]) {
     const char* command = argv[1];
+
+    if (strcmp(command, "version") == 0) {
+        print_version();
+        return 0;
+    }
+
     const char* filename = argv[2] ;
     run_command_for_file(command, filename);
     return 0;

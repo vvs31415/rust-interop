@@ -60,6 +60,7 @@ int main(const int argc, const char *argv[]) {
     const char* command = argv[1];
     const char* filename = argv[2] ;
     run_command_for_file(command, filename);
+    return 0;
 }
 
 void run_command_for_file(const char* command, const char* filename) {

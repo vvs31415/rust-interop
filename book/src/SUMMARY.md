@@ -3,8 +3,8 @@
 - [Introduction](index.md)
 - [Interop with C](c-intro.md)
   - [Initial C application](c/initial.md)
+  - [Calling a Rust function from C](c/calling-from-c.md)
 
-[//]: # (  - [Calling a Rust function from C]&#40;./chapter_01-02.md&#41;)
 [//]: # (  - [Passing data to and from Rust]&#40;./chapter_01-03.md&#41;)
 [//]: # (  - [Using cbindgen]&#40;./chapter_01-04.md&#41;)
 [//]: # (  - [Shared structs and enums]&#40;./chapter_01-05.md&#41;)
