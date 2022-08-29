@@ -1,0 +1,40 @@
+name: Book
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - book/**
+      - .github/workflows/book.yml
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get mdBook
+        run: |
+          export MDBOOK_TARBALL="mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz"
+          export MDBOOK_URL="https://github.com/rust-lang/mdBook/releases/download/v0.4.21/${MDBOOK_TARBALL}"
+          curl -Lf "${MDBOOK_URL}" | tar -xzC book
+          book/mdbook --version
+
+      - name: Build
+        run: book/build.sh
+
+      - name: Push to gh-pages
+        working-directory: book/build
+        run: |
+          REV=$(git rev-parse --short HEAD)
+          git init
+          git remote add upstream https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/paandahl/rust-interop
+          git config user.name "Preben Aandahl"
+          git config user.email "preben.aandahl@gmail.com"
+          git add -A .
+          git commit -qm "Website @ ${{github.repository}}@${REV}"
+          git push -q upstream HEAD:refs/heads/gh-pages --force
