@@ -25,7 +25,9 @@ jobs:
           book/mdbook --version
 
       - name: Build
-        run: book/build.sh
+        run: |
+          cd book
+          ./mdbook build
 
       - name: Push to gh-pages
         working-directory: book/build
