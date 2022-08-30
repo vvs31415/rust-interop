@@ -9,9 +9,10 @@
 > $ cp -R rust-interop/c/chap1 count
 > $ cd count
 > ```
-> The final result of this chapter is also available [here](../../../c/chap2).
+> The final result of this chapter is also available 
+> [here](https://github.com/paandahl/rust-interop/tree/main/c/chap2).
 
-Let's dive straight in and use cargo to initizlie a Rust library
+Let's dive straight in and use cargo to initialize a Rust library
 directly in our project folder:
 
 ```shell
