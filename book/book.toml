@@ -5,5 +5,8 @@ multilingual = false
 src = "src"
 title = "The Rust Interop Book"
 
+[rust]
+edition = "2021"
+
 [output.html]
 git-repository-url = "https://github.com/paandahl/rust-interop"
