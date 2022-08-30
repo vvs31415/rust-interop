@@ -3,4 +3,7 @@ authors = ["Preben Aandahl"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Rust Interop Book"
+title = "The Rust Interop Book"
+
+[output.html]
+git-repository-url = "https://github.com/paandahl/rust-interop"
