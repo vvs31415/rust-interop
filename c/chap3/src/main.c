@@ -9,6 +9,7 @@ uint64_t count_bytes(const char* data);
 void print_result(uint64_t result);
 
 void print_version();
+uint64_t count_characters(const char* text);
 
 int main(const int argc, const char *argv[]) {
     const char* command = argv[1];
@@ -37,6 +38,8 @@ void run_command_for_file(const char* command, const char* filename) {
 uint64_t do_calculation(const char* command, const char* data) {
     if (strcmp(command, "bytes") == 0) {
         return count_bytes(data);
+    } else if (strcmp(command, "characters") == 0) {
+        return count_characters(data);
     } else {
         fprintf(stderr, "Unrecognized command: %s\n", command);
         exit(1);

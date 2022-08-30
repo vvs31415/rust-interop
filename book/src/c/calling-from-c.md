@@ -85,7 +85,7 @@ C ABI. This specifies how data is laid out in memory, and how functions are call
 
 The C ABI is the lingua franca of application binaries, and our only line of 
 communication to the non-Rust world. All interop between Rust 
-and other languages, is based on calling conventions from C.
+and other languages is based on calling conventions from C.
 
 > **_NOTE:_** We have also added the `pub` keyword to our function. Although strictly
 > not necessary (C has no concept of private functions), it's good to be explicit about
@@ -196,7 +196,7 @@ Adding the library to the
 source list in `add_executable()` will evaluate our custom
 command before linking happens.
 
-From the `build`-folder, we can re-configure CMake:
+From the `build`-folder, we can now re-configure CMake:
 
 ```shell
 $ cmake ..
@@ -208,3 +208,10 @@ if there are new changes:
 ```shell
 $ cmake --build .
 ```
+
+### What's next?
+
+The facilities we use to bind Rust to other languages are often
+referred to as the Rust FFI (Foreign Function Interface). Now
+that we have  a working configuration, we will see how we can
+send and receive data across the FFI boundary.

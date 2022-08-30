@@ -52,9 +52,9 @@ if you want to familiarize yourself with it:
 #include <string.h>
 
 void run_command_for_file(const char* command, const char* filename);
-size_t do_calculation(const char* command, const char* data);
-size_t count_bytes(const char* data);
-void print_result(const size_t result);
+uint64_t do_calculation(const char* command, const char* data);
+uint64_t count_bytes(const char* data);
+void print_result(const uint64_t result);
 
 int main(const int argc, const char *argv[]) {
     const char* command = argv[1];
@@ -67,14 +67,14 @@ void run_command_for_file(const char* command, const char* filename) {
     File file = file_read(filename);
     char* str = file_to_string(file);
 
-    const size_t result = do_calculation(command, str);
+    const uint64_t result = do_calculation(command, str);
     print_result(result);
 
     free(str);
     file_free(file);
 }
 
-size_t do_calculation(const char* command, const char* data) {
+uint64_t do_calculation(const char* command, const char* data) {
     if (strcmp(command, "bytes") == 0) {
         return count_bytes(data);
     } else {
@@ -83,12 +83,12 @@ size_t do_calculation(const char* command, const char* data) {
     }
 }
 
-size_t count_bytes(const char* data) {
+uint64_t count_bytes(const char* data) {
     return strlen(data);
 }
 
-void print_result(const size_t result) {
-    printf("%li\n", result);
+void print_result(const uint64_t result) {
+    printf("%llu\n", result);
 }
 ```
 

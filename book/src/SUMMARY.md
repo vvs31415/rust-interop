@@ -4,8 +4,8 @@
 - [Interop with C](c-intro.md)
   - [Initial C application](c/initial.md)
   - [Calling a Rust function from C](c/calling-from-c.md)
+  - [Passing data to and from Rust](c/parameter-and-return.md)
 
-[//]: # (  - [Passing data to and from Rust]&#40;./chapter_01-03.md&#41;)
 [//]: # (  - [Using cbindgen]&#40;./chapter_01-04.md&#41;)
 [//]: # (  - [Shared structs and enums]&#40;./chapter_01-05.md&#41;)
 [//]: # (  - [Sending callbacks from C]&#40;./chapter_01-06.md&#41;)
