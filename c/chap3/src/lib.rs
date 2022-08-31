@@ -3,7 +3,7 @@ use std::os::raw::c_char;
 
 #[no_mangle]
 pub extern "C" fn print_version() {
-    println!("count version 2.0.0");
+    println!("count version 1.0.0");
 }
 
 #[no_mangle]
