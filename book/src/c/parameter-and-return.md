@@ -20,7 +20,7 @@ Example: while the string `Kaimū` has five characters, it is six bytes
 long, since the `ū` is a two-byte character.
 
 C has no built-in support for multibyte characters, so let's
-implement the function in Rust, where Unicode characters 
+implement the counting function in Rust, where Unicode characters 
 are first class citizens.
 
 ## Dispatching our new command

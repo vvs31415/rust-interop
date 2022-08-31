@@ -12,8 +12,8 @@
 [//]: # (  - [Returning Rust-allocated data]&#40;./chapter_01-07.md&#41;)
 [//]: # (  - [Exposing C functions to Rust]&#40;./chapter_01-08.md&#41;)
 [//]: # (  - [Holding on to C-allocated data]&#40;./chapter_01-09.md&#41;)
-[//]: # (- [Interop with C++]&#40;./chapter_02.md&#41;)
 
+[//]: # (- [Interop with C++]&#40;./chapter_02.md&#41;)
 [//]: # (- [Interop with Objective-C]&#40;./chapter_02.md&#41;)
 [//]: # (- [Interop with Swift]&#40;./chapter_02.md&#41;)
 [//]: # (- [Interop with Kotlin]&#40;./chapter_02.md&#41;)
