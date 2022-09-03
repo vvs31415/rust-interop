@@ -59,7 +59,9 @@ set(
 
 add_custom_command(
         # --snip--
+
         DEPENDS ${RUST_LIB_SOURCES}
+
         # --snip--
 )
 
