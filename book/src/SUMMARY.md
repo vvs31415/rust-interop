@@ -1,11 +1,11 @@
 # Summary
 
-- [Introduction](index.md)
+[The Rust Interop Book](index.md)
 - [Interop with C](c-intro.md)
-  - [Initial C application](c/initial.md)
+  - [Introducing our C application](c/initial.md)
   - [Calling a Rust function from C](c/calling-from-c.md)
   - [Passing data to and from Rust](c/parameter-and-return.md)
-  - [Using cbindgen](c/cbindgen.md)
+  - [Using cbindgen to generate C headers](c/cbindgen.md)
 
 [//]: # (  - [Shared structs and enums]&#40;./chapter_01-05.md&#41;)
 [//]: # (  - [Sending callbacks from C]&#40;./chapter_01-06.md&#41;)
