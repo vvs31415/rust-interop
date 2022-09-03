@@ -9,23 +9,23 @@ Let's add a third command to our application:
 <i><b>./count characters file.txt</b></i> 
 </pre>
 
-For plain English, the number of bytes and the number of 
+The number of bytes and
 characters in a file will often be the same. But a byte can
 only represent 256 different values, and to support all the 
-different alphabets out there, and special characters like emojis,
+alphabets out there, and special characters like emojis,
 UTF-8 encoded text allows for multiple bytes representing 
 single characters.
 
 Example: while the string `Kaimū` has five characters, it is six bytes
-long, since the `ū` is a two-byte character.
+long because the `ū` is a two-byte character.
 
 C has no built-in support for multibyte characters, so let's
 implement the counting function in Rust, where Unicode characters 
-are first class citizens.
+are first-class citizens.
 
 ## Dispatching our new command
 
-This  time we start from the other side, by adding a function 
+This  time we start from the other side by adding a function 
 declaration for our new function: `count_characters()`. We
 also add an `else if` clause to dispatch the new command
 in `do_calculation()`:
@@ -73,13 +73,13 @@ pub extern "C" fn count_characters(text: *const c_char) -> u64 {
 
 Our new function takes a pointer to C characters, represented
 by the `c_char` type from `std::os::raw`. We then turn it into
-a CStr with `CStr::from_ptr()`. `CStr` is an incredibly
-useful utility class that deals with
+a CStr with `CStr::from_ptr()`. `CStr` is a handy
+utility class that deals with
 C string references (i.e. it doesn't try to take ownership 
 of or free the data).
 
-By converting the `CStr` to a `&str`, we get to access to Rusts
-normal string utilities, and can proceed with 
+By converting the `CStr` to a `&str`, we gain access to Rust's
+regular string utilities and can proceed with 
 `text.chars().count()` to get the number of Unicode characters. 
 
 The function returns a plain `u64`, since that type matches the 
@@ -99,7 +99,7 @@ $ ./count characters kaimu.txt
 
 ## Which types match up?
 
-Here's a quick references of the most common Rust primitives 
+Here's a quick reference of the most common Rust primitives 
 you can pass directly across the FFI boundary.
 
 |   Rust    |             C             | 
@@ -112,9 +112,9 @@ you can pass directly across the FFI boundary.
 |    f32    |           float           |
 |    f64    |          double           |
 
-There's also some compatibility types in 
+There are also some compatibility types in 
 [std::os::raw](https://doc.rust-lang.org/std/os/raw/index.html) 
-for the platform specific C types. Here's an excerpt:
+for the platform-specific C types. Here's an excerpt:
 
 |        Rust        |       C       | 
 |:------------------:|:-------------:|
@@ -125,15 +125,15 @@ for the platform specific C types. Here's an excerpt:
 |      c_ulong       | unsigned long |
 |       c_void       |     void      |
 
-> __NOTE:__ The length of float and double are not strictly defined
-> in the C standard, but in practice this mapping will work
+> __NOTE:__ The C standard does not strictly define the length of float and 
+> double, but in practice, this mapping will work
 > on all major platforms. For the paranoid, there's also a
 > `c_float` and a `c_double` in `std::os::raw`.
 > 
 > You can read more detailed documentation about the memory layout of scalar types 
 > [here](https://rust-lang.github.io/unsafe-code-guidelines/layout/scalars.html).
 
-In the next chapter we will discover how the function
+In the next chapter, we will discover how the function
 declarations that our C code needs from Rust can be generated 
-automatically, instead of the error-prone and tedious task
+automatically instead of the error-prone and tedious task
 of writing and maintaining them by hand.

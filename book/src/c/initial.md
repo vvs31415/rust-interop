@@ -1,11 +1,11 @@
 # Introducing our C application
 
 Our project will start out with a simple C application 
-called `count`, that we'll gradually extend with Rust
+called `count`, which we'll gradually extend with Rust
 code.
 
 The application relies on an internal C module (`file.h` / `file.c`) to read
-a file from disk, and convert it to a string.
+a file from disk and convert it to a string.
 
 Based on a user-supplied command, the application then runs 
 a calculation on the file text. Initially,
@@ -14,10 +14,10 @@ other options.
 
 ## Building and running the code
 
-The source code for each chapter is avilable in our GitHub
+The source code for each chapter is available in our GitHub
 repository, and you'll find the initial code here.
 
-Start by checking out the code, and preparing a build directory:
+Start by checking out the code and preparing a build directory:
 
 ```shell
 $ git checkout git://rust-interop
@@ -40,7 +40,7 @@ $ ./count bytes test.txt
 As we go along, we will try to add new functionality to this
 application, implementing most of the new logic in Rust.
 
-The intial code is simple enough that it's included in  full below,
+The initial code is included in full below
 if you want to familiarize yourself with it:
 
 `src/main.cpp` - the entry point

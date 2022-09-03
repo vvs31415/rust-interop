@@ -21,11 +21,14 @@ $ cd count
 $ cargo init --lib --name count
 ```
 
-> Another common approach is to keep the Rust library in a separate folder.
-> If it is a self-contained library, that is a good way to handle it, but
-> in our project, we want to demonstrate a mixed-language unit of code with
-> dependencies in both directions. The upside to this approach, is that
-> you can gradually introduce Rust to your codebase.
+> Here, we put our C and Rust code in the same folder. The upside 
+> to this approach is that we can gradually introduce Rust to our modules, 
+> and we're going to demonstrate a mixed-language unit of code with dependencies 
+> in both directions.
+>
+> Another common practice is keeping the Rust library in a separate folder;
+> if it is self-contained, that is an excellent way to handle it.
+
 
 We also have to tell cargo that we intend to produce a static system library
 (to be linked into our C binary):
@@ -43,7 +46,7 @@ crate-type = ["staticlib"]
 
 ## Making the function
 
-Let's add a `version`-command that works like this:
+Let's add a `version` command that works like this:
 
 ```shell
 $ ./count version
@@ -60,11 +63,11 @@ pub extern "C" fn print_version() {
     println!("count version 1.0.0");
 }
 ```
-There's a couple of noteworthy things to point out here:
+There are a couple of noteworthy things to point out here:
 
 ### Name mangling
 
-Normally the Rust compiler rewrites the function names behind the scenes, to include 
+Usually, the Rust compiler rewrites the function names behind the scenes to include 
 details such as the crate name and the containing module.
 
 Our function name will turn into something like this:
@@ -73,23 +76,23 @@ Our function name will turn into something like this:
 __ZN5count11get_version17h0b87bf00f9702f77E
 ```
 
-C has no concept of crates and modules, so we need to add `#[no_mangle]`, to be able
+C has no concept of crates and modules, so we need to add `#[no_mangle]` to be able
 to resolve the function simply as `print_version()`.
 
 With mangling disabled, all exported function names need to be unique.
 
 ### ABI (Application Binary Interface)
 
-We also add `extern "C"` to the function, to allow it to be called with your platforms
-C ABI. This specifies how data is laid out in memory, and how functions are called.
+We also add `extern "C"` to the function to allow it to be called with your platforms
+C ABI. This specifies how data is laid out in memory and how functions are called.
 
-The C ABI is the lingua franca of application binaries, and our only line of 
+The C ABI is the lingua franca of application binaries and our only line of 
 communication to the non-Rust world. All interop between Rust 
 and other languages is based on calling conventions from C.
 
 > **_NOTE:_** We have also added the `pub` keyword to our function. Although strictly
-> not necessary (C has no concept of private functions), it's good to be explicit about
-> the fact that our function is part of the library's public interface.
+> not necessary (C has no concept of private functions), it's good to be explicit 
+> that our function is part of the library's public interface.
 
 ### Building the Rust library
 
@@ -106,10 +109,9 @@ The static library should now be ready at `target/debug/libcount.a` (Unix-like) 
 
 ## Calling our function from C
 
-We tell our C application that the function `get_version()` exists, by manually
-writing a function declaration. Then we call that function if `command` is equal
-to `"version"`. We make sure to do this before the file name is parsed, since there
-is no file involved.
+By manually writing a function declaration, we tell our C application that the function `get_version()` exists. Then we call that function if `command` is equal
+to `"version"`. We make sure to do this before the file name is parsed since
+no file is involved.
 
 Filename: src/main.c
 
@@ -129,7 +131,7 @@ int main(const int argc, const char *argv[]) {
     // --snip--
 ```
 
-We also need to amend our CMake configuration to link to the Rust library. Add the
+We amust also amend our CMake configuration to link to the Rust library. Add the
 following lines to the bottom of the file:
 
 Filename: CMakeLists.txt
@@ -142,7 +144,7 @@ set(RUST_LIB_PATH ${CMAKE_SOURCE_DIR}/target/debug/${RUST_LIB_NAME})
 target_link_libraries(count ${RUST_LIB_PATH})
 ```
 
-We construct the library name in a platform independent way (libcount.a or
+We construct the library name in a platform-independent way (libcount.a or
 count.lib), and link it to our executable.
 
 Let's build and run the program:
@@ -156,7 +158,7 @@ $ ./count version
 count version 1.0.0
 ```
 
-Our C application has been extended with Rust code!
+We've extended our C application with Rust code!
 
 ## Harmonizing CMake & Cargo
 
