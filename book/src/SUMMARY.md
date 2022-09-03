@@ -5,7 +5,7 @@
   - [Initial C application](c/initial.md)
   - [Calling a Rust function from C](c/calling-from-c.md)
   - [Passing data to and from Rust](c/parameter-and-return.md)
-  - [Using cbindgen](c/using-cbindgen.md)
+  - [Using cbindgen](c/cbindgen.md)
 
 [//]: # (  - [Shared structs and enums]&#40;./chapter_01-05.md&#41;)
 [//]: # (  - [Sending callbacks from C]&#40;./chapter_01-06.md&#41;)
