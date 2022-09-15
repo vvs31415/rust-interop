@@ -321,26 +321,26 @@ data through FFI.
 
 ### Passing heap data from C to Rust
 
-| Description                          | Type                                                  |
+| From -> to                           | Conversion                                            |
 |:-------------------------------------|:------------------------------------------------------|
 | *const c_char -> &str (reference)    | unsafe { CStr::from_ptr(char_ptr) }.to_str().unwrap() |
 | *mut c_char -> &str (owned)          | unsafe { CStr::from_ptr(char_ptr) }.to_str().unwrap() | 
-| *const u8 + len -> &[u8] (reference) | unsafe { slice::from_raw_parts(u8_ptr, len) }         | 
-| *const u8 + len -> &[u8] (owned)     | unsafe { slice::from_raw_parts(u8_ptr, len) }         | 
+| *const u8 + len -> &[u8] (reference) | unsafe { slice::from_raw_parts(ptr, len) }            | 
+| *const u8 + len -> &[u8] (owned)     | unsafe { slice::from_raw_parts(ptr, len) }            | 
 
 Remember that if you transfer ownership, you should also supply a callback or a
 function to free the memory.
 
 ### Passing heap data from Rust to C
 
-| Description                             | Type                                                                                                                         | Deallocation                                     |
-|:----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------|
-| &str -> *const c_char (reference)       | CString::new(rust_str).unwrap().as_ptr()                                                                                     |                                                  |
-| String -> *mut c_char (owned)           | CString::new(rust_str).unwrap().into_raw()                                                                                   | unsafe { CString::from_raw(char_ptr) };          |
-| &[u8] -> *const u8 (reference)          | u8_slice.as_ptr()                                                                                                            |                                                  | 
-| Vec<u8> -> *mut u8 (owned)              | vec.shrink_to_fit();<br/>let mut vec = mem::ManuallyDrop::new(vec);<br/>let u8_ptr = vec.as_mut_ptr()<br/>let len = v.len(); | unsafe { Vec::from_raw_parts(u8_ptr, len, len) } |
-| RustType -> *const RustType (reference) | &rust_obj as *const RustType                                                                                                 |                                                  |
-| RustType -> *mut RustType (owned)       | Box::into_raw(Box::new(rust_obj));                                                                                           | unsafe { Box::from_raw(ptr) };                   |
+| From -> to                              | Conversion                                                                                                                                                                                                                                         |
+|:----------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| &str -> *const c_char (reference)       | `CString::new(rust_str).unwrap().as_ptr()`                                                                                                                                                                                                         |                       
+| String -> *mut c_char (owned)           | `CString::new(rust_str).unwrap().into_raw()`<br/><br/>*Deallocation:*<br/>`unsafe { CString::from_raw(char_ptr) };`                                                                                                                                |
+| &[u8] -> *const u8 (reference)          | `u8_slice.as_ptr()`                                                                                                                                                                                                                                | 
+| Vec<u8> -> *mut u8 (owned)              | `vec.shrink_to_fit();`<br/>`let mut vec = mem::ManuallyDrop::new(vec);`<br/>`let ptr = vec.as_mut_ptr()`<br/>`let len = v.len();`<br/><br/>*Deallocation:*<br/>`unsafe {`<br/>&nbsp;&nbsp;&nbsp;&nbsp;`Vec::from_raw_parts(ptr, len, len)`<br/>`}` |
+| RustType -> *const RustType (reference) | `&rust_obj as *const RustType`                                                                                                                                                                                                                     |
+| RustType -> *mut RustType (owned)       | `Box::into_raw(Box::new(rust_obj));`<br/><br/>*Deallocation:*<br/>`unsafe { Box::from_raw(ptr) };`                                                                                                                                                 |
 
 
 In the next section we will give you even more control, by enabling you to call
