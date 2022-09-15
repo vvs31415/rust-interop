@@ -4,7 +4,7 @@
 - [Interop with C](c-intro.md)
   - [Introducing our C application](c/initial.md)
   - [Calling a Rust function from C](c/calling-from-c.md)
-  - [Taking references and returning primitves from Rust](c/parameter-and-return.md)
+  - [Taking references and returning primitives from Rust](c/parameter-and-return.md)
   - [Using cbindgen to generate C headers](c/cbindgen.md)
   - [Shared structs and enums](c/shared-types.md)
   - [Sending callbacks from C](c/callbacks.md)

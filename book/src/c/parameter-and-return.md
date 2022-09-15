@@ -1,4 +1,4 @@
-# Taking references and returning primitves from Rust
+# Taking references and returning primitives from Rust
 
 Let's add a third command to our application:
 
