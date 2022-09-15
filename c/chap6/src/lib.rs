@@ -1,3 +1,7 @@
+mod modules {
+    mod csv;
+}
+
 use std::ffi::CStr;
 use std::os::raw::c_char;
 use std::{slice, ptr};
@@ -18,6 +22,14 @@ pub extern "C" fn count_characters(text: *const c_char) -> u64 {
 pub struct Arguments {
     command: Command,
     filename: *const c_char,
+    file_mode: FileMode,
+}
+
+/// cbindgen:prefix-with-name
+#[repr(C)]
+pub enum FileMode {
+    Normal,
+    CsvList,
 }
 
 /// cbindgen:prefix-with-name
@@ -48,5 +60,15 @@ pub extern "C" fn parse_args(argc: usize, argv: *const *const c_char) -> Argumen
     }
     let filename = filename.unwrap_or(ptr::null());
 
-    Arguments { command, filename }
+    let file_mode = if let Some(csv_flag) = arguments.get(3).copied() {
+        let csv_flag = unsafe { CStr::from_ptr(csv_flag) }.to_str().unwrap();
+        match csv_flag {
+            "--csv-list" => FileMode::CsvList,
+            _ => panic!("CSV flag not recognized: {csv_flag}")
+        }
+    } else {
+        FileMode::Normal
+    };
+
+    Arguments { command, filename, file_mode }
 }

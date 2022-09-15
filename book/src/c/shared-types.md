@@ -18,16 +18,16 @@ Filename: src/lib.rs
 ```rust
 // --snip--
 
+pub struct Arguments {
+    command: Command,
+    filename: *const c_char,
+}
+
 #[derive(PartialEq)]
 pub enum Command {
     Version,
     Bytes,
     Characters,
-}
-
-pub struct Arguments {
-    command: Command,
-    filename: *const c_char,
 }
 ```
 
@@ -144,17 +144,17 @@ Filename: src/lib.rs
 // --snip --
 
 #[repr(C)]
+pub struct Arguments {
+    command: Command,
+    filename: *const c_char,
+}
+
+#[repr(C)]
 #[derive(PartialEq)]
 pub enum Command {
     Version,
     Bytes,
     Characters,
-}
-
-#[repr(C)]
-pub struct Arguments {
-    command: Command,
-    filename: *const c_char,
 }
 
 // --snip --
