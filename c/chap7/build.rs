@@ -4,6 +4,7 @@ use std::env;
 fn main() {
     println!("cargo:rerun-if-changed=src/lib.rs");
     println!("cargo:rerun-if-changed=src/modules/csv.rs");
+    println!("cargo:rerun-if-changed=src/modules/files/mod.rs");
 
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 

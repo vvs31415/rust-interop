@@ -30,7 +30,7 @@ void run_command_for_file(const char* command, const char* filename) {
     const uint64_t result = do_calculation(command, str);
     print_result(result);
 
-    free(str);
+    file_free_string(str);
     file_free(file);
 }
 

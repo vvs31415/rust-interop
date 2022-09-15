@@ -1,15 +1,15 @@
 # Introducing our C application
 
-Our project will start out with a simple C application 
+Our project will start out with a simple C application
 called `count`, which we'll gradually extend with Rust
 code.
 
 The application relies on an internal C module (`file.h` / `file.c`) to read
 a file from disk and convert it to a string.
 
-Based on a user-supplied command, the application then runs 
+Based on a user-supplied command, the application then runs
 a calculation on the file text. Initially,
-`bytes` is the only supported command, but we will soon add 
+`bytes` is the only supported command, but we will soon add
 other options.
 
 ## Building and running the code
@@ -22,7 +22,7 @@ Start by checking out the code and preparing a build directory:
 ```shell
 $ git checkout git://rust-interop
 $ cd rust-interop/c/chap1
-$ mkdir build && cd build 
+$ mkdir build && cd build
 ```
 
 Configure & run the build, create some test data, and run
@@ -31,7 +31,7 @@ the program:
 ```shell
 $ cmake .. && make
 $ echo -n "Rust interop" > test.txt
-$ ./count bytes test.txt 
+$ ./count bytes test.txt
 12
 ```
 
@@ -70,7 +70,7 @@ void run_command_for_file(const char* command, const char* filename) {
     const uint64_t result = do_calculation(command, str);
     print_result(result);
 
-    free(str);
+    file_free_string(str);
     file_free(file);
 }
 
@@ -108,6 +108,7 @@ typedef struct File {
 File file_read(const char* filename);
 char* file_to_string(File file);
 void file_free(File file);
+void file_free_string(char* file_string);
 ```
 
 `src/modules/file.c ` - The file module implementation
@@ -148,6 +149,10 @@ char* file_to_string(const File file) {
 
 void file_free(const File file) {
     free(file.data);
+}
+
+void file_free_string(char* file_string) {
+    free(file_string);
 }
 ```
 

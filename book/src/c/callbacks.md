@@ -163,7 +163,23 @@ pub extern "C" fn parse_args(argc: usize, argv: *const *const c_char) -> Argumen
 }
 ```
 
-Let's not forget to add the new file to our CMake config:
+We should rebuild the C bindings every time this new file changes:
+
+Filename: build.rs
+```rust
+// --snip--
+
+fn main() {
+    println!("cargo:rerun-if-changed=src/lib.rs");
+    println!("cargo:rerun-if-changed=src/modules/csv.rs");
+
+    // --snip--
+}
+
+// --snip--
+```
+
+And let's not forget to add it as a dependency of our CMake config:
 
 Filename: CMakeLists.txt
 ```cmake
@@ -207,7 +223,7 @@ void run_command_for_file(const char* filename, const void* ctx_ptr) {
     const uint64_t result = do_calculation(ctx->command, str);
     print_result(result);
 
-    free(str);
+    file_free_string(str);
     file_free(file);
 }
 
@@ -243,7 +259,7 @@ int main(const int argc, const char *argv[]) {
             char* csv = file_to_string(file_read(args.filename));
             CommandContext ctx = { .command = args.command };
             csv_for_each_value(csv, run_command_for_file, &ctx);
-            free(csv);
+            file_free_string(csv);
             break;
         }
     }
@@ -263,7 +279,7 @@ $ cmake --build .
 $ echo "# Getting started" > chapter1.md
 $ echo "# Wrapping up" > chapter2.md
 $ echo "chapter1.md,chapter2.md" > list.csv
-$ ./count bytes list.csv --csv-list
+$ ./count characters list.csv --csv-list
 18
 14
 ```
@@ -340,7 +356,7 @@ A final test is in order:
 
 ```console
 $ cmake --build .
-$ ./count bytes list.csv --csv-list
+$ ./count characters list.csv --csv-list
 18 chapter1.md
 14 chapter2.md
 ```
@@ -348,6 +364,5 @@ $ ./count bytes list.csv --csv-list
 This output is much easier to digest.
 
 In this section we have showed how you can pass control from C to
-Rust and back again. This is a very powerful technique, and in the next
-section we will give you even more control, by enabling you to call
-any C function directly from Rust, not just callbacks.
+Rust and back again. In the next one, we will will see how we can
+pass heap allocated data from Rust to C.

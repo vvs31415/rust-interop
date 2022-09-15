@@ -34,3 +34,7 @@ char* file_to_string(const File file) {
 void file_free(const File file) {
     free(file.data);
 }
+
+void file_free_string(char* file_string) {
+    free(file_string);
+}

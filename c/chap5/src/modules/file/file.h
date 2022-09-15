@@ -11,3 +11,4 @@ typedef struct File {
 File file_read(const char* filename);
 char* file_to_string(File file);
 void file_free(File file);
+void file_free_string(char* file_string);

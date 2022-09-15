@@ -36,6 +36,14 @@ int main(const int argc, const char *argv[]) {
             file_free_string(csv);
             break;
         }
+        case FileMode_CsvMerged: {
+            char* csv = file_to_string(file_read(args.filename));
+            char* content = csv_merge_files(csv, file_free_string);
+            const size_t result = do_calculation(args.command, content);
+            csv_free_merged_file(content);
+            print_result(result);
+            break;
+        }
     }
 
     return 0;
@@ -53,7 +61,7 @@ void run_command_for_file(const char* filename, const void* ctx_ptr) {
         print_result(result);
     }
 
-    file_free_string(str);
+    free(str);
     file_free(file);
 }
 
