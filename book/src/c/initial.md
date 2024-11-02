@@ -43,7 +43,7 @@ application, implementing most of the new logic in Rust.
 The initial code is included in full below
 if you want to familiarize yourself with it:
 
-`src/main.cpp` - the entry point
+`src/main.c` - the entry point
 
 ```c
 #include "modules/file/file.h"
@@ -98,6 +98,7 @@ void print_result(const uint64_t result) {
 #pragma once
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct File {
     const char* filename;

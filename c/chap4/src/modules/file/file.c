@@ -1,8 +1,6 @@
 #include "file.h"
 
-#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 File file_read(const char* filename) {
